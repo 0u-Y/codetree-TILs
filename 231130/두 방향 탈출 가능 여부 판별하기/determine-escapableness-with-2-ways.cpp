@@ -16,9 +16,9 @@ void DFS(int a, int b) {
     for (int i = 0; i < 2; i++) {
         int nx = a + dx[i];
         int ny = b + dy[i];
-        if (nx >= m || nx < 0 || ny >= n || ny < 0) continue;
+        if (nx >= n || nx < 0 || ny >= m || ny < 0) continue;
         if (map[nx][ny] == 0 || vis[nx][ny] == 1) continue;
-        if (nx == m - 1 && ny == n - 1) {
+        if (nx == n - 1 && ny == m - 1) {
             cout << 1 << endl;
             return;
         }
@@ -28,10 +28,10 @@ void DFS(int a, int b) {
 }
 
 int main() {
-    cin >> m >> n;
+    cin >> n >> m;
 
-    for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
             cin >> map[i][j];
         }
     }
@@ -39,7 +39,7 @@ int main() {
     vis[0][0] = 1;
     DFS(0, 0);
 
-    if (vis[m - 1][n - 1] == 0) {
+    if (vis[n - 1][m - 1] == 0) {
         cout << 0 << endl;
     }
 
