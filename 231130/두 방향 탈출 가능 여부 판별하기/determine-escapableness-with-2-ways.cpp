@@ -1,47 +1,55 @@
 #include <iostream>
-#define X first
-#define Y second
+
+#define MAX_NUM 100
+#define DIR_NUM 2
 
 using namespace std;
 
-int dx[2] = {1, 0};
-int dy[2] = {0, -1};
-
-bool vis[101][101] = {0};
-
 int n, m;
-int map[101][101];
+int grid[MAX_NUM][MAX_NUM];
+bool visited[MAX_NUM][MAX_NUM];
 
-void DFS(int a, int b) {
-    for (int i = 0; i < 2; i++) {
-        int nx = a + dx[i];
-        int ny = b + dy[i];
-        if (nx >= n || nx < 0 || ny >= m || ny < 0) continue;
-        if (map[nx][ny] == 0 || vis[nx][ny] == 1) continue;
-        if (nx == n - 1 && ny == m - 1) {
-            cout << 1 << endl;
-            return;
-        }
-        vis[nx][ny] = 1;
-        DFS(nx, ny);
-    }
+// 탐색하는 위치가 격자 범위 내에 있는지 여부를 반환합니다.
+bool InRange(int x, int y) {
+    return x >= 0 && x < n && y >= 0 && y < m;
 }
 
-int main() {
-    cin >> n >> m;
+// 탐색하는 위치로 움직일 수 있는지 여부를 반환합니다.
+bool CanGo(int x, int y) {
+    if(!InRange(x, y))
+        return false;
 
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            cin >> map[i][j];
+    if(visited[x][y] || grid[x][y] == 0)
+        return false;
+
+    return true;
+}
+
+void DFS(int x, int y) {
+    int dx[DIR_NUM] = {0, 1};
+    int dy[DIR_NUM] = {1, 0};
+
+    // 아래쪽과 오른쪽 각각에 대하여 DFS 탐색을 합니다.
+    for(int i = 0; i < DIR_NUM; i++) {
+        int new_x = x + dx[i];
+        int new_y = y + dy[i];
+        if(CanGo(new_x, new_y)) {
+            visited[new_x][new_y] = 1;
+            DFS(new_x, new_y);
         }
     }
+    
+}
 
-    vis[0][0] = 1;
+int main() { 
+    cin >> n >> m;
+    for(int i = 0; i < n; i++)
+        for(int j = 0; j < m; j++)
+            cin >> grid[i][j];
+
+    visited[0][0] = 1;
     DFS(0, 0);
 
-    if (vis[n - 1][m - 1] == 0) {
-        cout << 0 << endl;
-    }
-
+    cout << visited[n - 1][m - 1];
     return 0;
 }
