@@ -1,41 +1,39 @@
 #include <iostream>
+#include <string>
 #include <unordered_map>
 
 using namespace std;
 
+// 변수 선언
+int n;
+unordered_map<int, int> m;
+
 int main() {
-    int n;
-
-    cin>>n;
-
-    string method;
-    unordered_map<int, int> hashmap;
+    // 입력:
+    cin >> n;
     
-    while(n--){
-        cin>>method;
-        if(method == "add"){
-            int a,b;
-            cin>>a>>b;
-            hashmap.insert({a,b});
+    for(int i = 0; i < n; i++) {
+        string command;
+        cin >> command;
+
+        if(command == "add") {
+            int k, v;
+            cin >> k >> v;
+            m[k] = v;
         }
-        else if(method == "remove"){
-            int key;
-            cin>>key;
-            hashmap.erase(key);
+        else if(command == "remove") {
+            int k;
+            cin >> k;
+            m.erase(k);
         }
-        else if(method == "find"){
-            int key;
-            cin>>key;
-            if(hashmap.find(key) == hashmap.end()){
-                cout<<hashmap[key]<<'\n';
-            }
-            else{
-                cout<<"None"<<'\n';
-            }
+        else {
+            int k;
+            cin >> k;
+            if(m.find(k) == m.end())
+                cout << "None" << endl;
+            else
+                cout << m[k] << endl;
         }
-        
     }
-
-
-
+    return 0;
 }
