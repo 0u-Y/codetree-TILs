@@ -22,10 +22,10 @@ int main() {
         min = i;
         for(int j= i+1; j<n; j++){
             if(arr[j] < arr[min]){
-                min = j;
                 temp = arr[j];
                 arr[j] = arr[min];
                 arr[min] = temp;
+                min = j;
 
             }
         }
