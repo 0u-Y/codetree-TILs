@@ -12,6 +12,10 @@ int map[101][101];
 
 
 void checkRow(int y){
+    if(m == 1){
+        ans++;
+        return;
+    }
     int count = 1;
 
     for(int i=0; i<n; i++){
@@ -31,6 +35,10 @@ void checkRow(int y){
 }
 
 void checkColumn(int x){
+    if(m == 1){
+        ans++;
+        return;
+    }
     int count = 1;
 
     for(int i=0; i<n-1; i++){
