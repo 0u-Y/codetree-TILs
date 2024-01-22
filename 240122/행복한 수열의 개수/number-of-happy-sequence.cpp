@@ -6,6 +6,11 @@ int ans;
 int map[101][101];
 
 void checkColumn(int y) {
+    if (m == 1) {
+        ans++;
+        return;
+    }
+
     int count = 1;
     for (int i = 0; i < n - 1; i++) {
         if (map[i][y] == map[i + 1][y]) {
@@ -18,10 +23,14 @@ void checkColumn(int y) {
             count = 1;
         }
     }
-    if (n == 1 && m == 1) ans++;
 }
 
 void checkRow(int x) {
+    if (m == 1) {
+        ans++;
+        return;
+    }
+
     int count = 1;
     for (int i = 0; i < n - 1; i++) {
         if (map[x][i] == map[x][i + 1]) {
@@ -34,7 +43,6 @@ void checkRow(int x) {
             count = 1;
         }
     }
-    if (n == 1 && m == 1) ans++;
 }
 
 int main() {
@@ -43,13 +51,17 @@ int main() {
 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            cin >> map[j][i];
+            cin >> map[i][j];
         }
     }
 
-    for (int i = 0; i < n; i++) {
-        checkRow(i);
-        checkColumn(i);
+    if (m == 1) {
+        ans = 2 * n;
+    } else {
+        for (int i = 0; i < n; i++) {
+            checkRow(i);
+            checkColumn(i);
+        }
     }
 
     cout << ans;
