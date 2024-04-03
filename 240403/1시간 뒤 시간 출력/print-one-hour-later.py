@@ -1,3 +1,3 @@
-a = input()
+a,b = map(int, input().split(":"))
 
-print(a.split(":"))
+print(str(a+1) + ":" + str(b))
